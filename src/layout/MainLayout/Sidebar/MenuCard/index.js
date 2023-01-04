@@ -57,7 +57,7 @@ function LinearProgressWithLabel({ value, ...others }) {
 
     return (
         <Grid container direction="column" spacing={1} sx={{ mt: 1.5 }}>
-            <Grid item>
+            {/* <Grid item>
                 <Grid container justifyContent="space-between">
                     <Grid item>
                         <Typography
@@ -74,7 +74,7 @@ function LinearProgressWithLabel({ value, ...others }) {
             </Grid>
             <Grid item>
                 <BorderLinearProgress variant="determinate" value={value} {...others} />
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 }
@@ -94,7 +94,7 @@ const MenuCard = () => {
                 <List sx={{ p: 0, m: 0 }}>
                     <ListItem alignItems="flex-start" disableGutters sx={{ p: 0 }}>
                         <ListItemAvatar sx={{ mt: 0 }}>
-                            <Avatar
+                            {/* <Avatar
                                 variant="rounded"
                                 sx={{
                                     ...theme.typography.commonAvatar,
@@ -107,9 +107,9 @@ const MenuCard = () => {
                                 }}
                             >
                                 <TableChartOutlinedIcon fontSize="inherit" />
-                            </Avatar>
+                            </Avatar> */}
                         </ListItemAvatar>
-                        <ListItemText
+                        {/* <ListItemText
                             sx={{ mt: 0 }}
                             primary={
                                 <Typography
@@ -120,10 +120,10 @@ const MenuCard = () => {
                                 </Typography>
                             }
                             secondary={<Typography variant="caption"> 28/23 GB</Typography>}
-                        />
+                        /> */}
                     </ListItem>
                 </List>
-                <LinearProgressWithLabel value={80} />
+                {/* <LinearProgressWithLabel value={80} /> */}
             </CardContent>
         </CardStyle>
     );

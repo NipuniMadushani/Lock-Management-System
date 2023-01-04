@@ -30,7 +30,7 @@ const ListStylePage1 = () => {
             title={
                 <Grid container alignItems="center" justifyContent="space-between" spacing={gridSpacing}>
                     <Grid item>
-                        <Typography variant="h3">List</Typography>
+                        <Typography variant="h3">User List</Typography>
                     </Grid>
                     <Grid item>
                         <OutlinedInput
@@ -51,11 +51,11 @@ const ListStylePage1 = () => {
             <UserList />
             <Grid item xs={12} sx={{ p: 3 }}>
                 <Grid container justifyContent="space-between" spacing={gridSpacing}>
-                    <Grid item>
+                    {/* <Grid item>
                         <Pagination count={10} color="primary" />
-                    </Grid>
+                    </Grid> */}
                     <Grid item>
-                        <Button
+                        {/* <Button
                             size="large"
                             sx={{ color: theme.palette.grey[900] }}
                             color="secondary"
@@ -63,8 +63,8 @@ const ListStylePage1 = () => {
                             onClick={handleClick}
                         >
                             10 Rows
-                        </Button>
-                        {anchorEl && (
+                        </Button> */}
+                        {/* {anchorEl && (
                             <Menu
                                 id="menu-user-list-style1"
                                 anchorEl={anchorEl}
@@ -85,7 +85,7 @@ const ListStylePage1 = () => {
                                 <MenuItem onClick={handleClose}> 20 Rows</MenuItem>
                                 <MenuItem onClick={handleClose}> 30 Rows </MenuItem>
                             </Menu>
-                        )}
+                        )} */}
                     </Grid>
                 </Grid>
             </Grid>

@@ -9,28 +9,28 @@ const chance = new Chance();
 
 // user profile data
 const profileIdsData = {
-    profile1: 'profile-1',
-    profile2: 'profile-2',
-    profile3: 'profile-3'
+    profile1: 'J.N.C.Madushani-E00038',
+    profile2: 'W.M.Lakshan-E00045',
+    profile3: 'Sara Murshedeen-E00089'
 };
 
 const profilesData = [
     {
         id: profileIdsData.profile1,
         avatar: 'avatar-3.png',
-        name: 'Barney Thea',
+        name: 'J.N.C.Madushani',
         time: '2 min ago'
     },
     {
         id: profileIdsData.profile2,
         avatar: 'avatar-1.png',
-        name: 'Maddison Wilber',
+        name: 'W.M.Lakshan',
         time: '1 day ago'
     },
     {
         id: profileIdsData.profile3,
         avatar: 'avatar-2.png',
-        name: 'John Doe',
+        name: 'Sara Murshedeen',
         time: 'now'
     }
 ];
@@ -96,7 +96,7 @@ const itemsData = [
         id: itemIdsData.item1,
         image: 'profile-back-1.png',
         priority: 'low',
-        title: 'Online fees payment & instant announcements'
+        title: 'Design key block'
     },
     {
         assign: profileIdsData.profile2,
@@ -107,7 +107,7 @@ const itemsData = [
         id: itemIdsData.item2,
         image: false,
         priority: 'high',
-        title: 'Creation and Maintenance of Inventory Objects'
+        title: 'Creation and Maintenance of  Objects'
     },
     {
         assign: profileIdsData.profile3,
@@ -117,7 +117,7 @@ const itemsData = [
         id: itemIdsData.item3,
         image: false,
         priority: 'low',
-        title: 'Update React & TypeScript version'
+        title: 'Key block cutting'
     },
     {
         assign: profileIdsData.profile2,
@@ -128,7 +128,7 @@ const itemsData = [
         id: itemIdsData.item4,
         image: 'profile-back-2.png',
         priority: 'low',
-        title: 'Set allowing rules for trusted applications.'
+        title: 'Design lock barrel.'
     },
     {
         assign: profileIdsData.profile2,
@@ -160,7 +160,7 @@ const itemsData = [
         id: itemIdsData.item7,
         image: 'profile-back-4.png',
         priority: 'low',
-        title: 'Purchase Requisitions, Adjustments, and Transfers.'
+        title: 'Make lock barrel.'
     },
     {
         assign: profileIdsData.profile1,
@@ -170,7 +170,7 @@ const itemsData = [
         id: itemIdsData.item8,
         image: false,
         priority: 'low',
-        title: 'Attendance checking & homework details'
+        title: 'Packed Completed Security Lock '
     },
     {
         assign: profileIdsData.profile3,
@@ -181,7 +181,7 @@ const itemsData = [
         id: itemIdsData.item9,
         image: false,
         priority: 'high',
-        title: 'Admission, Staff & Schedule management'
+        title: 'Lock set fixing'
     },
     {
         assign: profileIdsData.profile2,
@@ -198,10 +198,10 @@ const itemsData = [
 
 // columns data
 const columnIdsData = {
-    column1: 'column-1',
-    column2: 'column-2',
-    column3: 'column-3',
-    column4: 'column-4'
+    column1: 'NEW',
+    column2: 'PENDING',
+    column3: 'RESOLVED',
+    column4: 'CLOSED'
 };
 
 const columnsData = [
@@ -212,7 +212,7 @@ const columnsData = [
     },
     {
         id: columnIdsData.column2,
-        title: 'Active',
+        title: 'Pending',
         itemIds: [itemIdsData.item3, itemIdsData.item4, itemIdsData.item5]
     },
     {
@@ -254,7 +254,7 @@ const userStoryData = [
         dueDate: add(new Date(), { days: 12 }),
         id: userStoryIdsData.userStory1,
         priority: 'low',
-        title: 'School Management Backend',
+        title: 'Complete Full Process of Lock Block Structure',
         itemIds: [itemIdsData.item1, itemIdsData.item8, itemIdsData.item9]
     },
     {
@@ -266,7 +266,7 @@ const userStoryData = [
         dueDate: add(new Date(), { days: 8 }),
         id: userStoryIdsData.userStory2,
         priority: 'high',
-        title: 'Inventory Implementation & Design',
+        title: 'Rekeyable lock assembly and method of operation ',
         itemIds: [itemIdsData.item2, itemIdsData.item7]
     },
     {
@@ -278,7 +278,7 @@ const userStoryData = [
         dueDate: set(new Date(), { hours: 10, minutes: 30 }),
         id: userStoryIdsData.userStory3,
         priority: 'medium',
-        title: 'Theme migration from v4 to v5',
+        title: 'Lock Machining Process',
         itemIds: [itemIdsData.item3, itemIdsData.item6, itemIdsData.item10]
     },
     {
@@ -290,7 +290,7 @@ const userStoryData = [
         dueDate: sub(new Date(), { days: 8 }),
         id: userStoryIdsData.userStory4,
         priority: 'low',
-        title: 'Lunch Beauty Application',
+        title: 'Key Setting Process',
         itemIds: [itemIdsData.item4, itemIdsData.item5]
     }
 ];

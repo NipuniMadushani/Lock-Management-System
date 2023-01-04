@@ -68,7 +68,7 @@ const products = [
 
 const productreviews = [
     {
-        name: 'Apple Watch Series 1',
+        name: 'Nipuni Madushani',
         author: 'Joseph William',
         review: 'The Series 4 is a significant step...',
         rating: 3.5,
@@ -76,7 +76,7 @@ const productreviews = [
         status: 1
     },
     {
-        name: 'Apple X2 2',
+        name: 'Tharaka Karunarathna',
         author: 'Anshan Handgun',
         review: 'The Series 4 is a significant step...',
         rating: 5.0,

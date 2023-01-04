@@ -32,7 +32,7 @@ const Customization = () => {
     return (
         <>
             {/* toggle button */}
-            <Tooltip title="Live Customize">
+            <Tooltip>
                 <Fab
                     component="div"
                     onClick={handleToggle}
@@ -52,55 +52,13 @@ const Customization = () => {
                         boxShadow: theme.customShadows.secondary
                     }}
                 >
-                    <AnimateButton type="rotate">
+                    {/* <AnimateButton type="rotate">
                         <IconButton color="inherit" size="large" disableRipple>
                             <IconSettings />
                         </IconButton>
-                    </AnimateButton>
+                    </AnimateButton> */}
                 </Fab>
             </Tooltip>
-
-            <Drawer
-                anchor="right"
-                onClose={handleToggle}
-                open={open}
-                PaperProps={{
-                    sx: {
-                        width: 280
-                    }
-                }}
-            >
-                {open && (
-                    <PerfectScrollbar component="div">
-                        <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
-                            <Grid item xs={12}>
-                                {/* layout type */}
-                                <Layout />
-                            </Grid>
-                            <Grid item xs={12}>
-                                {/* Theme Preset Color */}
-                                <PresetColor />
-                            </Grid>
-                            <Grid item xs={12}>
-                                {/* font family */}
-                                <FontFamily />
-                            </Grid>
-                            <Grid item xs={12}>
-                                {/* border radius */}
-                                <BorderRadius />
-                            </Grid>
-                            <Grid item xs={12}>
-                                {/* filled with outline textfield */}
-                                <InputFilled />
-                            </Grid>
-                            <Grid item xs={12}>
-                                {/* box container */}
-                                <BoxContainer />
-                            </Grid>
-                        </Grid>
-                    </PerfectScrollbar>
-                )}
-            </Drawer>
         </>
     );
 };

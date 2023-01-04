@@ -31,10 +31,10 @@ export const Auth0Provider = ({ children }) => {
     useEffect(() => {
         const init = async () => {
             try {
-                auth0Client = new Auth0Client({
-                    redirect_uri: window.location.origin,
-                    ...AUTH0_API
-                });
+                // auth0Client = new Auth0Client({
+                //     redirect_uri: window.location.origin,
+                //     ...AUTH0_API
+                // });
 
                 await auth0Client.checkSession();
                 const isLoggedIn = await auth0Client.isAuthenticated();

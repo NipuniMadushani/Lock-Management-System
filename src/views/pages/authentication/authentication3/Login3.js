@@ -7,10 +7,10 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 // project imports
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
-import AuthLogin from '../auth-forms/AuthLogin';
 import Logo from 'ui-component/Logo';
 import AuthFooter from 'ui-component/cards/AuthFooter';
 import useAuth from 'hooks/useAuth';
+import JWTLogin from '../login/JWTLogin';
 
 // assets
 
@@ -48,7 +48,7 @@ const Login = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Hi, Welcome Back
+                                                        Hi, Welcome Back To LOCK HOOD
                                                     </Typography>
                                                     <Typography
                                                         variant="caption"
@@ -62,7 +62,7 @@ const Login = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <AuthLogin />
+                                        <JWTLogin />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
@@ -71,12 +71,21 @@ const Login = () => {
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={Link}
-                                                to={isLoggedIn ? '/pages/register/register3' : '/register'}
+                                                to={true ? '/pages/register' : '/register'}
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >
                                                 Don&apos;t have an account?
                                             </Typography>
+
+                                            {/* <Typography
+                                                component={Link}
+                                                to={isLoggedIn ? '/dashboard/lockhood' : '/dashboard/lockhood'}
+                                                variant="subtitle1"
+                                                sx={{ textDecoration: 'none' }}
+                                            >
+                                                Don&apos;t have an account?
+                                            </Typography> */}
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -84,9 +93,9 @@ const Login = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
+                {/* <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
                     <AuthFooter />
-                </Grid>
+                </Grid> */}
             </Grid>
         </AuthWrapper1>
     );

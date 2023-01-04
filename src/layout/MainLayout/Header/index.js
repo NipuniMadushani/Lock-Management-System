@@ -1,6 +1,6 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Box, useMediaQuery } from '@mui/material';
+import { Avatar, Box, Button, Menu, MenuItem, useMediaQuery } from '@mui/material';
 
 // project imports
 import LAYOUT_CONST from 'constant';
@@ -18,17 +18,90 @@ import { openDrawer } from 'store/slices/menu';
 
 // assets
 import { IconMenu2 } from '@tabler/icons';
+import AnimateButton from 'ui-component/extended/AnimateButton';
+import { useNavigate } from 'react-router-dom';
+import AuthService from 'services/auth.service';
+import { useEffect, useState } from 'react';
+
+// const userRoles = currentUser.roles[0];
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = useState();
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleManageProduct = () => {
+        setAnchorEl(null);
+        navigate('/e-commerce/product-list', { replace: true });
+    };
 
     const dispatch = useDispatch();
     const { drawerOpen } = useSelector((state) => state.menu);
 
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
     const { layout } = useConfig();
+
+    const [kanbanVisible, setKanbanVisible] = useState(false);
+    const [eCommerceVisible, setEcommerceVisible] = useState(false);
+    const [adminVisible, setAdminVisible] = useState(false);
+    const [engineerVisible, setEnginnerVisible] = useState(false);
+    const [prchaseOfficeVisible, setPurchaseOfficeVisible] = useState(false);
+    useEffect(() => {
+        const currentUser = AuthService.getCurrentUser();
+        console.log(currentUser?.roles[0]);
+        if (currentUser?.roles[0] === 'ROLE_SUPERVISOR') {
+            setKanbanVisible(true);
+        } else {
+            setKanbanVisible(false);
+        }
+
+        if (currentUser?.roles[0] === 'ROLE_CUSTOMER') {
+            setEcommerceVisible(true);
+        } else {
+            setEcommerceVisible(false);
+        }
+
+        if (currentUser?.roles[0] === 'ROLE_ADMIN') {
+            setAdminVisible(true);
+        } else {
+            setAdminVisible(false);
+        }
+
+        if (currentUser?.roles[0] === 'ROLE_ADMIN_ENGINEERING') {
+            setEnginnerVisible(true);
+        } else {
+            setEnginnerVisible(false);
+        }
+        if (currentUser?.roles[0] === 'ROLE_ADMIN_PURCHASE_OFFICE') {
+            setPurchaseOfficeVisible(true);
+        } else {
+            setPurchaseOfficeVisible(false);
+        }
+    }, []);
+
+    const handleClickShowKanBanCard = () => {
+        setAnchorEl(null);
+        navigate('/app/kanban/Board', { replace: true });
+        // setShowPassword(!showPassword);
+    };
+
+    const handleClickShowEcommerceDetails = () => {
+        setAnchorEl(null);
+        navigate('/e-commerce/products', { replace: true });
+    };
+    const handleManageUserDetails = () => {
+        setAnchorEl(null);
+        navigate('/user/list/list1', { replace: true });
+    };
 
     return (
         <>
@@ -75,14 +148,182 @@ const Header = () => {
             <Box sx={{ flexGrow: 1 }} />
 
             {/* mega-menu */}
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                <MegaMenuSection />
+            <Box>
+                {/* <MegaMenuSection /> */}
+                <Box>
+                    {kanbanVisible && (
+                        <Box>
+                            <Button
+                                id="demo-positioned-button"
+                                aria-controls={open ? 'demo-positioned-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}
+                            >
+                                Supervisor
+                            </Button>
+                            <Menu
+                                id="demo-positioned-menu"
+                                aria-labelledby="demo-positioned-button"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left'
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left'
+                                }}
+                            >
+                                <MenuItem onClick={handleClickShowKanBanCard}>Manage Kanban </MenuItem>
+                                {/* <MenuItem onClick={handleClose}>View Income Report</MenuItem>
+                         <MenuItem onClick={handleClose}>Manage User </MenuItem> */}
+                            </Menu>
+                        </Box>
+                    )}
+                </Box>
             </Box>
 
-            {/* live customization & localization */}
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                <LocalizationSection />
+            <Box>
+                {/* <MegaMenuSection /> */}
+                <Box>
+                    {eCommerceVisible && (
+                        <Box>
+                            <Button
+                                id="demo-positioned-button"
+                                aria-controls={open ? 'demo-positioned-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}
+                            >
+                                Customer
+                            </Button>
+                            <Menu
+                                id="demo-positioned-menu"
+                                aria-labelledby="demo-positioned-button"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left'
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left'
+                                }}
+                            >
+                                <MenuItem onClick={handleClickShowEcommerceDetails}> LockHood Products</MenuItem>
+                                {/* <MenuItem onClick={handleClose}>View Income Report</MenuItem>
+                             <MenuItem onClick={handleClose}>Manage User </MenuItem> */}
+                            </Menu>
+                        </Box>
+                    )}
+                </Box>
             </Box>
+            {adminVisible && (
+                <Box>
+                    <Button
+                        id="demo-positioned-button"
+                        aria-controls={open ? 'demo-positioned-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                    >
+                        Admin
+                    </Button>
+                    <Menu
+                        id="demo-positioned-menu"
+                        aria-labelledby="demo-positioned-button"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left'
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left'
+                        }}
+                    >
+                        <MenuItem onClick={handleManageProduct}>Manage Product </MenuItem>
+                        <MenuItem onClick={handleClose}>View Income Report</MenuItem>
+                        <MenuItem onClick={handleManageUserDetails}>Manage User </MenuItem>
+                    </Menu>
+                </Box>
+            )}
+
+            {engineerVisible && (
+                <Box>
+                    <Button
+                        id="demo-positioned-button"
+                        aria-controls={open ? 'demo-positioned-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                    >
+                        Admin -Enginnering Department
+                    </Button>
+                    <Menu
+                        id="demo-positioned-menu"
+                        aria-labelledby="demo-positioned-button"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left'
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left'
+                        }}
+                    >
+                        <MenuItem onClick={handleManageProduct}>View KanBan Card Details </MenuItem>
+                        {/* <MenuItem onClick={handleClose}>View Income Report</MenuItem>
+                        <MenuItem onClick={handleClose}>Manage User </MenuItem> */}
+                    </Menu>
+                </Box>
+            )}
+            {prchaseOfficeVisible && (
+                <Box>
+                    <Button
+                        id="demo-positioned-button"
+                        aria-controls={open ? 'demo-positioned-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                    >
+                        Admin -Purchase Office
+                    </Button>
+                    <Menu
+                        id="demo-positioned-menu"
+                        aria-labelledby="demo-positioned-button"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left'
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left'
+                        }}
+                    >
+                        <MenuItem onClick={handleManageProduct}>View KanBan Card Details </MenuItem>
+                        {/* <MenuItem onClick={handleClose}>View Income Report</MenuItem>
+                        <MenuItem onClick={handleClose}>Manage User </MenuItem> */}
+                    </Menu>
+                </Box>
+            )}
+            {/* live customization & localization */}
+            {/* <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <LocalizationSection />
+            </Box> */}
 
             {/* notification & profile */}
             <NotificationSection />

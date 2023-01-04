@@ -15,14 +15,14 @@ import Slider from 'react-slick';
 import Carousel, { Modal, ModalGateway } from 'react-images';
 
 // assets
-import prod1 from 'assets/images/e-commerce/prod-1.jpg';
-import prod2 from 'assets/images/e-commerce/prod-2.jpg';
-import prod3 from 'assets/images/e-commerce/prod-3.jpg';
-import prod4 from 'assets/images/e-commerce/prod-4.jpg';
-import prod5 from 'assets/images/e-commerce/prod-5.jpg';
-import prod6 from 'assets/images/e-commerce/prod-6.jpg';
-import prod7 from 'assets/images/e-commerce/prod-7.jpg';
-import prod8 from 'assets/images/e-commerce/prod-8.jpg';
+import prod1 from 'assets/images/e-commerce/prod-1.png';
+import prod2 from 'assets/images/e-commerce/prod-2.png';
+import prod3 from 'assets/images/e-commerce/prod-3.png';
+import prod4 from 'assets/images/e-commerce/prod-4.png';
+import prod5 from 'assets/images/e-commerce/prod-5.png';
+import prod6 from 'assets/images/e-commerce/prod-6.png';
+import prod7 from 'assets/images/e-commerce/prod-7.png';
+import prod8 from 'assets/images/e-commerce/prod-8.png';
 import useConfig from 'hooks/useConfig';
 
 const prodImage = require.context('assets/images/e-commerce', true);

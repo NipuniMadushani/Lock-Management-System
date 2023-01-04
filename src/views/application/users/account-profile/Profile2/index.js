@@ -18,8 +18,6 @@ import { gridSpacing } from 'store/constant';
 // assets
 import PersonOutlineTwoToneIcon from '@mui/icons-material/PersonOutlineTwoTone';
 import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
-import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
-import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
 
 // tabs
 function TabPanel({ children, value, index, ...other }) {
@@ -54,17 +52,17 @@ const tabsOption = [
         label: 'Billing',
         icon: <DescriptionTwoToneIcon />,
         caption: 'Billing Information'
-    },
-    {
-        label: 'Payment',
-        icon: <CreditCardTwoToneIcon />,
-        caption: 'Add & Update Card'
-    },
-    {
-        label: 'Change Password',
-        icon: <VpnKeyTwoToneIcon />,
-        caption: 'Update Profile Security'
     }
+    // {
+    //     label: 'Payment',
+    //     icon: <CreditCardTwoToneIcon />,
+    //     caption: 'Add & Update Card'
+    // },
+    // {
+    //     label: 'Change Password',
+    //     icon: <VpnKeyTwoToneIcon />,
+    //     caption: 'Update Profile Security'
+    // }
 ];
 
 // ==============================|| PROFILE 2 ||============================== //
@@ -160,12 +158,12 @@ const Profile2 = () => {
                                 <TabPanel value={value} index={1}>
                                     <Billing />
                                 </TabPanel>
-                                <TabPanel value={value} index={2}>
+                                {/* <TabPanel value={value} index={2}>
                                     <Payment />
                                 </TabPanel>
                                 <TabPanel value={value} index={3}>
                                     <ChangePassword />
-                                </TabPanel>
+                                </TabPanel> */}
                             </CardContent>
                         </Grid>
                     </Grid>

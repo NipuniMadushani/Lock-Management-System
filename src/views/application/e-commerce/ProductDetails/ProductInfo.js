@@ -56,8 +56,8 @@ function getColor(color) {
 const sizeOptions = [8, 10, 12, 14, 16, 18, 20];
 
 const validationSchema = yup.object({
-    color: yup.string().required('Color selection is required'),
-    size: yup.number().required('Size selection is required.')
+    // color: yup.string().required('Color selection is required'),
+    // size: yup.number().required('Size selection is required.')
 });
 
 // ==============================|| COLORS OPTION ||============================== //
@@ -133,8 +133,7 @@ const ProductInfo = ({ product }) => {
             image: product.image,
             salePrice: product.salePrice,
             offerPrice: product.offerPrice,
-            color: '',
-            size: '',
+
             quantity: 1
         },
         validationSchema,

@@ -39,6 +39,10 @@ import User1 from 'assets/images/users/user-round.svg';
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import useConfig from 'hooks/useConfig';
+import AuthService from 'services/auth.service';
+
+import { openSnackbar } from 'store/slices/snackbar';
+import { useDispatch } from 'react-redux';
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -46,20 +50,25 @@ const ProfileSection = () => {
     const theme = useTheme();
     const { borderRadius } = useConfig();
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const [sdm, setSdm] = useState(true);
     const [value, setValue] = useState('');
     const [notification, setNotification] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const { logout, user } = useAuth();
     const [open, setOpen] = useState(false);
+    const currentUser = AuthService.getCurrentUser();
+
     /**
      * anchorRef is used on different components and specifying one type leads to other components throwing an error
      * */
     const anchorRef = useRef(null);
     const handleLogout = async () => {
         try {
-            await logout();
+            AuthService.logout();
+            navigate('/login');
+
+            // await logout();
         } catch (err) {
             console.error(err);
         }
@@ -91,6 +100,22 @@ const ProfileSection = () => {
 
         prevOpen.current = open;
     }, [open]);
+
+    const logOut = () => {
+        AuthService.logout();
+        dispatch(
+            openSnackbar({
+                open: true,
+                message: 'Your logout has been successfully completed',
+                variant: 'alert',
+                alert: {
+                    color: 'success'
+                },
+                close: true
+            })
+        );
+        navigate('/login');
+    };
 
     return (
         <>
@@ -164,10 +189,15 @@ const ProfileSection = () => {
                                                 <Stack direction="row" spacing={0.5} alignItems="center">
                                                     <Typography variant="h4">Good Morning,</Typography>
                                                     <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                        {user?.name}
+                                                        {currentUser?.username}
                                                     </Typography>
                                                 </Stack>
-                                                <Typography variant="subtitle2">Project Admin</Typography>
+                                                {currentUser === null ? (
+                                                    ''
+                                                ) : (
+                                                    <Typography variant="subtitle2">{currentUser.roles}</Typography>
+                                                )}
+                                                {/* <Typography variant="subtitle2">Project Admin</Typography> */}
                                             </Stack>
                                             <OutlinedInput
                                                 sx={{ width: '100%', pr: 1, pl: 2, my: 2 }}
@@ -195,7 +225,7 @@ const ProfileSection = () => {
                                             }}
                                         >
                                             <Box sx={{ p: 2, pt: 0 }}>
-                                                <UpgradePlanCard />
+                                                {/* <UpgradePlanCard /> */}
                                                 <Divider />
                                                 <Card
                                                     sx={{
@@ -208,7 +238,7 @@ const ProfileSection = () => {
                                                 >
                                                     <CardContent>
                                                         <Grid container spacing={3} direction="column">
-                                                            <Grid item>
+                                                            {/* <Grid item>
                                                                 <Grid item container alignItems="center" justifyContent="space-between">
                                                                     <Grid item>
                                                                         <Typography variant="subtitle1">Start DND Mode</Typography>
@@ -223,7 +253,7 @@ const ProfileSection = () => {
                                                                         />
                                                                     </Grid>
                                                                 </Grid>
-                                                            </Grid>
+                                                            </Grid> */}
                                                             <Grid item>
                                                                 <Grid item container alignItems="center" justifyContent="space-between">
                                                                     <Grid item>
@@ -259,7 +289,7 @@ const ProfileSection = () => {
                                                         }
                                                     }}
                                                 >
-                                                    <ListItemButton
+                                                    {/* <ListItemButton
                                                         sx={{ borderRadius: `${borderRadius}px` }}
                                                         selected={selectedIndex === 0}
                                                         onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile1')}
@@ -274,8 +304,8 @@ const ProfileSection = () => {
                                                                 </Typography>
                                                             }
                                                         />
-                                                    </ListItemButton>
-                                                    <ListItemButton
+                                                    </ListItemButton> */}
+                                                    {/* <ListItemButton
                                                         sx={{ borderRadius: `${borderRadius}px` }}
                                                         selected={selectedIndex === 1}
                                                         onClick={(event) => handleListItemClick(event, 1, '/user/social-profile/posts')}
@@ -307,7 +337,7 @@ const ProfileSection = () => {
                                                                 </Grid>
                                                             }
                                                         />
-                                                    </ListItemButton>
+                                                    </ListItemButton> */}
                                                     <ListItemButton
                                                         sx={{ borderRadius: `${borderRadius}px` }}
                                                         selected={selectedIndex === 4}
@@ -318,7 +348,7 @@ const ProfileSection = () => {
                                                         </ListItemIcon>
                                                         <ListItemText
                                                             primary={
-                                                                <Typography variant="body2">
+                                                                <Typography variant="body2" onClick={logOut}>
                                                                     <FormattedMessage id="logout" />
                                                                 </Typography>
                                                             }

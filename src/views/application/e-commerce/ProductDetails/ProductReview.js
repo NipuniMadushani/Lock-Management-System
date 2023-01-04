@@ -20,7 +20,7 @@ import RateReviewTwoToneIcon from '@mui/icons-material/RateReviewTwoTone';
 function LinearProgressWithLabel({ like, star, color, value, ...others }) {
     return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ minWidth: 50 }}>
+            {/* <Box sx={{ minWidth: 50 }}>
                 <Typography variant="body2" color="textSecondary">{`${Math.round(star)} Stars`}</Typography>
             </Box>
             <Box sx={{ width: '100%', mr: 1 }}>
@@ -28,7 +28,7 @@ function LinearProgressWithLabel({ like, star, color, value, ...others }) {
             </Box>
             <Box sx={{ minWidth: 35 }}>
                 <Typography variant="subtitle1">{`(${Math.round(like)})`}</Typography>
-            </Box>
+            </Box> */}
         </Box>
     );
 }
@@ -58,7 +58,7 @@ const ProductReviews = ({ product }) => {
 
     return (
         <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} lg={4}>
+            {/* <Grid item xs={12} lg={4}>
                 <MainCard content={false} sx={{ height: '100%' }}>
                     <CardContent sx={{ height: '100%' }}>
                         {product && (
@@ -135,7 +135,7 @@ const ProductReviews = ({ product }) => {
                 <Stack direction="row" justifyContent="center">
                     <Button variant="text"> Load more Comments </Button>
                 </Stack>
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 };

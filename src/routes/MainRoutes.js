@@ -7,6 +7,7 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
+const ReportKanban = Loadable(lazy(() => import('views/application/KanbanDetails/ViewKanbanDetails')));
 const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
 
 // widget routing
@@ -25,9 +26,10 @@ const AppProfileCardStyle1 = Loadable(lazy(() => import('views/application/users
 const AppProfileCardStyle2 = Loadable(lazy(() => import('views/application/users/card/CardStyle2')));
 const AppProfileCardStyle3 = Loadable(lazy(() => import('views/application/users/card/CardStyle3')));
 const AppProfileListStyle1 = Loadable(lazy(() => import('views/application/users/list/Style1')));
-const AppProfileListStyle2 = Loadable(lazy(() => import('views/application/users/list/Style2')));
+// const AppProfileListStyle2 = Loadable(lazy(() => import('views/application/users/list/Style2')));
 
 // application - customer routing
+const AppCustomerDetails = Loadable(lazy(() => import('views/application/customer/CustomerDetails/ViewCustomer')));
 const AppCustomerList = Loadable(lazy(() => import('views/application/customer/CustomerList')));
 const AppCustomerOrderList = Loadable(lazy(() => import('views/application/customer/OrderList')));
 const AppCustomerCreateInvoice = Loadable(lazy(() => import('views/application/customer/CreateInvoice')));
@@ -40,6 +42,7 @@ const AppChat = Loadable(lazy(() => import('views/application/chat')));
 const AppKanban = Loadable(lazy(() => import('views/application/kanban')));
 const AppKanbanBacklogs = Loadable(lazy(() => import('views/application/kanban/Backlogs')));
 const AppKanbanBoard = Loadable(lazy(() => import('views/application/kanban/Board')));
+// const AppDisaplayKanbanReport = Loadable(lazy(() => import('views/application/kanban/KanbanDetails/viewKanbandetails')));
 const AppMail = Loadable(lazy(() => import('views/application/mail')));
 const AppCalendar = Loadable(lazy(() => import('views/application/calendar')));
 const AppContactCard = Loadable(lazy(() => import('views/application/contact/Card')));
@@ -128,7 +131,6 @@ const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons
 const UtilsAnimation = Loadable(lazy(() => import('views/utilities/Animation')));
 const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 
-// sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -141,18 +143,18 @@ const MainRoutes = {
         </AuthGuard>
     ),
     children: [
-        {
-            path: '/widget/statistics',
-            element: <WidgetStatistics />
-        },
-        {
-            path: '/widget/data',
-            element: <WidgetData />
-        },
-        {
-            path: '/widget/chart',
-            element: <WidgetChart />
-        },
+        // {
+        //     path: '/widget/statistics',
+        //     element: <WidgetStatistics />
+        // },
+        // {
+        //     path: '/widget/data',
+        //     element: <WidgetData />
+        // },
+        // {
+        //     path: '/widget/chart',
+        //     element: <WidgetChart />
+        // },
 
         {
             path: '/user/social-profile/:tab',
@@ -187,14 +189,35 @@ const MainRoutes = {
             path: '/user/list/list1',
             element: <AppProfileListStyle1 />
         },
+
         {
-            path: '/user/list/list2',
-            element: <AppProfileListStyle2 />
+            path: '/application/kanban/reportView',
+            element: <ReportKanban />
+        },
+
+        {
+            path: '/app/kanban',
+            element: <AppKanban />,
+            children: [
+                {
+                    path: 'backlogs',
+                    element: <AppKanbanBacklogs />
+                },
+                {
+                    path: 'board',
+                    element: <AppKanbanBoard />
+                }
+            ]
         },
 
         {
             path: '/customer/customer-list',
             element: <AppCustomerList />
+        },
+
+        {
+            path: '/customer/customer-details',
+            element: <AppCustomerDetails />
         },
         {
             path: '/customer/order-list',
@@ -217,28 +240,20 @@ const MainRoutes = {
             element: <AppCustomerProductReview />
         },
 
-        {
-            path: '/app/chat',
-            element: <AppChat />
-        },
-        {
-            path: '/app/mail',
-            element: <AppMail />
-        },
-        {
-            path: '/app/kanban',
-            element: <AppKanban />,
-            children: [
-                {
-                    path: 'backlogs',
-                    element: <AppKanbanBacklogs />
-                },
-                {
-                    path: 'board',
-                    element: <AppKanbanBoard />
-                }
-            ]
-        },
+        // {
+        //     path: '/app/chat',
+        //     element: <AppChat />
+        // },
+
+        // {
+        //     path: '/app/report',
+        //     element: <Re />
+        // },
+        // {
+        //     path: '/app/mail',
+        //     element: <AppMail />
+        // },
+
         {
             path: '/app/calendar',
             element: <AppCalendar />
@@ -510,7 +525,7 @@ const MainRoutes = {
             element: <SamplePage />
         },
         {
-            path: '/dashboard/default',
+            path: '/dashboard/lockhood',
             element: <DashboardDefault />
         },
         {

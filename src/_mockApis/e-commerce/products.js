@@ -11,16 +11,17 @@ const chance = new Chance();
 const products = [
     {
         id: 1,
-        image: 'prod-1.jpg',
-        name: chance.name(),
-        description: chance.paragraph({ sentences: 2 }),
+        image: 'prod-1.png',
+        name: 'Door Access Control Board Panel Controller For 2 Doors Wiegand 4 Readers TCP/IP WAN Access Control system',
+        description:
+            'Multi-Card Open Door: Yes open long time at specific time: Yes ,Door opening time extension: Setting: 1 ~ 600 seconds (adjustable) ',
         rating: chance.floating({ min: 0.1, max: 5.0 }),
         discount: 25,
         salePrice: 350,
         offerPrice: 275,
         gender: 'male',
         categories: ['fashion', 'books'],
-        colors: ['errorDark', 'orangeDark', 'errorMain', 'secondaryMain'],
+        // colors: ['errorDark', 'orangeDark', 'errorMain', 'secondaryMain'],
         popularity: chance.natural(),
         date: chance.natural(),
         created: sub(new Date(), { days: 8, hours: 6, minutes: 20 }),
@@ -28,10 +29,10 @@ const products = [
     },
     {
         id: 2,
-        image: 'prod-2.jpg',
-        name: chance.name(),
-        description: chance.paragraph({ sentences: 2 }),
-        rating: chance.floating({ min: 0.1, max: 5.0 }),
+        image: 'prod-2.png',
+        name: 'Keyboard Access Control With MF Card Reader Mobile BLT TT Lock Access Control Waterproof IP68 Card Reader With Keyboard',
+        description:
+            'The device is a standalone access control and proximity card reader which supports MF card type. It builds-in STC microprocessor, with strong anti-interference ability,high security and reliability,powerful function and convenient operation It’s widely used in high-end buildings, residential communities and other public places',
         discount: 10,
         salePrice: 89.99,
         offerPrice: 81.99,
@@ -45,9 +46,10 @@ const products = [
     },
     {
         id: 3,
-        image: 'prod-3.jpg',
-        name: chance.name(),
-        description: chance.paragraph({ sentences: 2 }),
+        image: 'prod-3.png',
+        name: '60/180/280/350KG Good Quality Embedded Buried Magnetic Lock Electric Lock Door Access Control System EM Lock',
+        description:
+            '100% brand new and high quality 2. Secure mode: Locked when power on, unlocked when power off 3. Especially suitable for wooden/ glass/ metal/ secuirty doors.4. It is made from durable and high stainless steel material, durable for use',
         rating: chance.floating({ min: 0.1, max: 5.0 }),
         discount: 40,
         salePrice: 85.0,
@@ -62,9 +64,10 @@ const products = [
     },
     {
         id: 4,
-        image: 'prod-4.jpg',
-        name: chance.name(),
-        description: chance.paragraph({ sentences: 2 }),
+        image: 'prod-4.png',
+        name: 'IP65 Waterproof Visible Face Access Control With Fingerprint Reader Or QR Code EM And MF Card Reader Face Time Attendance',
+        description:
+            ' Uface 5 Pro series is an AI-based face recognition allin-one terminal featuring high reliability and high performance, which can be applied to deliver a highspeed recognition rate with unrivaled accuracy.  Powered by the latest deep-learning ',
         rating: chance.floating({ min: 0.1, max: 5.0 }),
         discount: 17,
         salePrice: 36.0,
@@ -79,9 +82,9 @@ const products = [
     },
     {
         id: 5,
-        image: 'prod-5.jpg',
-        name: chance.name(),
-        description: chance.paragraph({ sentences: 2 }),
+        image: 'prod-5.png',
+        name: 'Smart Home Automatic Swing Door Opener Closer Electric Garage Gate Operator Optional Sensor Remote Control Big Gate Motor',
+        description: 'Automatoc door opener is low enerhy automatic with a swing door opener that is activated by push buttons',
         rating: chance.floating({ min: 0.1, max: 5.0 }),
         discount: 20,
         salePrice: 15.99,
@@ -96,9 +99,10 @@ const products = [
     },
     {
         id: 6,
-        image: 'prod-6.jpg',
-        name: chance.name(),
-        description: chance.paragraph({ sentences: 2 }),
+        image: 'prod-6.png',
+        name: 'WIFI TUYA Biometric Fingerprint Facial Face Recognition Palm Print Card Password Key Smart Front Door Lock Access Control System',
+        description:
+            'Waterproof level: slightly waterproof, completely open air environment such as direct rain cannot be accepted Lock body size: 24*240/30*240/other anti-theft door lock body size, default 24*240MM lock body size is sent, large lock',
         rating: chance.floating({ min: 0.1, max: 5.0 }),
         discount: 13,
         salePrice: 99.99,
@@ -113,9 +117,9 @@ const products = [
     },
     {
         id: 7,
-        image: 'prod-7.jpg',
-        name: chance.name(),
-        description: chance.paragraph({ sentences: 2 }),
+        image: 'prod-7.png',
+        name: 'IP68 Waterproof Door Access Control Exit Button Zinc Alloy No Touch Door Release Metal Touchless Exit Button',
+        description: 'Sensitive Distance 5-20cm（Adjustable）,Material Zinc Alloy,Operating Temp -20℃~+55℃(14-131F)',
         rating: chance.floating({ min: 0.1, max: 5.0 }),
         discount: 15,
         salePrice: 16.99,
@@ -130,9 +134,10 @@ const products = [
     },
     {
         id: 8,
-        image: 'prod-8.jpg',
-        name: chance.name(),
-        description: chance.paragraph({ sentences: 2 }),
+        image: 'prod-8.png',
+        name: 'Infrared Sensor Switch No Touch Contactless Switches Door Release Exit Button with LED Indication 304 Stainless Steel',
+        description:
+            "The biometric access control features 5-inch TFT capacitive color touchscreen, dual infrared, dual high-definition cameras, and Dual-core ARM Cortex-A7@ 900MHz. Using XIMI's new real-time facial recognition algorithm, face capture is more accurate and faster through light balancing. After years of improvement, our products are more cost-effective as ever. They are widely used in government agencies, intelligent buildings, office buildings, high-end residential property, universities, enterprises, and much more.",
         rating: chance.floating({ min: 0.1, max: 5.0 }),
         discount: 20,
         salePrice: 129.99,

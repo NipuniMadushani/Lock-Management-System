@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { React, useReducer, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -27,22 +27,28 @@ import { Formik } from 'formik';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import useAuth from 'hooks/useAuth';
 import useScriptRef from 'hooks/useScriptRef';
+import { openSnackbar } from 'store/slices/snackbar';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import AuthService from 'services/auth.service';
+import { useDispatch } from 'react-redux';
+import accountReducer from 'store/accountReducer';
+import { LOGIN } from 'store/actions';
 
 // ===============================|| JWT LOGIN ||=============================== //
 
 const JWTLogin = ({ loginProp, ...others }) => {
     const theme = useTheme();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const { login } = useAuth();
     const scriptedRef = useScriptRef();
 
-    const [checked, setChecked] = React.useState(true);
+    const [checked, setChecked] = useState(true);
 
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -50,28 +56,89 @@ const JWTLogin = ({ loginProp, ...others }) => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-
+    const initialState = {
+        isLoggedIn: false,
+        isInitialized: false,
+        user: null
+    };
+    const [state, dispatch1] = useReducer(accountReducer, initialState);
     return (
         <Formik
             initialValues={{
-                email: 'info@codedthemes.com',
-                password: '123456',
+                username: '',
+                password: '',
                 submit: null
             }}
             validationSchema={Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                username: Yup.string().required('Username is required'),
+                // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                 password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+                // navigate('/dashboard/lockhood', { replace: true });
                 try {
-                    await login(values.email, values.password);
+                    AuthService.login(values.username, values.password).then(
+                        (response) => {
+                            if (scriptedRef.current) {
+                                // console.log(response.data);
+                                setStatus({ success: true });
+                                // setErrors({ submit: err.message });
+                                setSubmitting(false);
 
-                    if (scriptedRef.current) {
-                        setStatus({ success: true });
-                        setSubmitting(false);
-                    }
+                                dispatch1({
+                                    type: LOGIN,
+                                    payload: {
+                                        isLoggedIn: true
+                                        // user
+                                    }
+                                });
+                                dispatch(
+                                    openSnackbar({
+                                        open: true,
+                                        message: 'Your login has been successfully completed.',
+                                        variant: 'alert',
+                                        alert: {
+                                            color: 'success'
+                                        },
+                                        close: true
+                                    })
+                                );
+                                navigate('/dashboard/lockhood', { replace: true });
+
+                                // window.location.reload();
+
+                                // setTimeout(() => {
+                                //     navigate('/dashboard/lockhood', { replace: true });
+                                // }, 500);
+                            }
+                            // }
+                        },
+                        (error) => {
+                            console.log('erroe');
+                            const resMessage =
+                                (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+                            setStatus({ success: false });
+                            setErrors({ submit: error.message });
+                            setSubmitting(false);
+                            dispatch(
+                                openSnackbar({
+                                    open: true,
+                                    message: 'Please Try Again.Login Details are wrong.',
+                                    variant: 'alert',
+                                    alert: {
+                                        color: 'error'
+                                    },
+                                    close: false
+                                })
+                            );
+
+                            //   setLoading(false);
+                            //   setMessage(resMessage);
+                        }
+                    );
                 } catch (err) {
                     console.error(err);
+                    console.log('erroe2');
                     if (scriptedRef.current) {
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
@@ -82,20 +149,21 @@ const JWTLogin = ({ loginProp, ...others }) => {
         >
             {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                 <form noValidate onSubmit={handleSubmit} {...others}>
-                    <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-                        <InputLabel htmlFor="outlined-adornment-email-login">Email Address / Username</InputLabel>
+                    <FormControl fullWidth error={Boolean(touched.username && errors.username)} sx={{ ...theme.typography.customInput }}>
+                        <InputLabel htmlFor="outlined-adornment-email-login"> Username</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-email-login"
-                            type="email"
-                            value={values.email}
-                            name="email"
+                            type="text"
+                            value={values.username}
+                            name="username"
                             onBlur={handleBlur}
                             onChange={handleChange}
+                            label=" Username"
                             inputProps={{}}
                         />
-                        {touched.email && errors.email && (
+                        {touched.username && errors.username && (
                             <FormHelperText error id="standard-weight-helper-text-email-login">
-                                {errors.email}
+                                {errors.username}
                             </FormHelperText>
                         )}
                     </FormControl>
@@ -150,11 +218,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
                             <Typography
                                 variant="subtitle1"
                                 component={Link}
-                                to={
-                                    loginProp
-                                        ? `/pages/forgot-password/forgot-password${loginProp}`
-                                        : '/pages/forgot-password/forgot-password3'
-                                }
+                                to={loginProp ? `/pages/forgot-password/forgot-password${loginProp}` : '/pages/forgot-password'}
                                 color="secondary"
                                 sx={{ textDecoration: 'none' }}
                             >

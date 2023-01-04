@@ -78,6 +78,17 @@ const AddStory = ({ open, handleDrawerOpen }) => {
         }
     });
 
+    // const fetchAllUsers = async () => {
+    //     await axios.get('http://localhost:8080/api/auth/get-all-users').then((response) => {
+    //         console.log(response.data);
+    //         setProfiles(response.data.data.list);
+    //         // setTableData(response.data.data.list);
+    //     });
+    // };
+    // useEffect(() => {
+    //     fetchAllUsers();
+    // }, []);
+
     return (
         <Drawer
             sx={{

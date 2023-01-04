@@ -20,6 +20,11 @@ import {
 // assets
 import { IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto } from '@tabler/icons';
 import User1 from 'assets/images/users/user-round.svg';
+import AuthService from 'services/auth.service';
+import { Link, Link as RouterLink } from 'react-router-dom';
+import Logo from 'ui-component/Logo';
+
+import { DASHBOARD_PATH } from 'config';
 
 // styles
 const ListItemWrapper = styled('div')(({ theme }) => ({
@@ -37,6 +42,7 @@ const ListItemWrapper = styled('div')(({ theme }) => ({
 
 const NotificationList = () => {
     const theme = useTheme();
+    const currentUser = AuthService.getCurrentUser();
 
     const chipSX = {
         height: 24,
@@ -83,77 +89,101 @@ const NotificationList = () => {
                 }
             }}
         >
-            <ListItemWrapper>
-                <ListItem alignItems="center">
-                    <ListItemAvatar>
-                        <Avatar alt="John Doe" src={User1} />
-                    </ListItemAvatar>
-                    <ListItemText primary="John Doe" />
-                    <ListItemSecondaryAction>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item xs={12}>
-                                <Typography variant="caption" display="block" gutterBottom>
-                                    2 min ago
+            {currentUser.roles[0] === 'ROLE_ADMIN_ENGINEERING' ? (
+                <ListItemWrapper>
+                    <ListItem alignItems="center">
+                        {/* <ListItemText
+                            primary={
+                                <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
+                                    {currentUser?.username}
                                 </Typography>
+                            }
+                        /> */}
+                        <ListItemAvatar>
+                            <Link component={RouterLink} to="application/kanban/reportView">
+                                <Avatar src={User1} />
+                            </Link>
+                        </ListItemAvatar>
+
+                        <ListItemText primary={<Typography variant="subtitle1">Kanban Card Report </Typography>} />
+                        <ListItemSecondaryAction>
+                            <Grid container justifyContent="flex-end">
+                                <Grid item xs={12}>
+                                    <Typography variant="caption" display="block" gutterBottom>
+                                        2 min ago
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                    <Grid container direction="column" className="list-container">
+                        <Grid item xs={12} sx={{ pb: 2 }}>
+                            <Typography variant="subtitle2">You have a new message from Engineering and Factory Supervisor</Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid container>
+                                <Grid item>
+                                    <Chip label="Unread" sx={chipErrorSX} />
+                                </Grid>
+                                <Grid item>
+                                    <Chip label="New" sx={chipWarningSX} />
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </ListItemSecondaryAction>
-                </ListItem>
-                <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
-                        <Typography variant="subtitle2">It is a long established fact that a reader will be distracted</Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Grid container>
-                            <Grid item>
-                                <Chip label="Unread" sx={chipErrorSX} />
-                            </Grid>
-                            <Grid item>
-                                <Chip label="New" sx={chipWarningSX} />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </ListItemWrapper>
+                </ListItemWrapper>
+            ) : (
+                ''
+            )}
+
             <Divider />
-            <ListItemWrapper>
-                <ListItem alignItems="center">
-                    <ListItemAvatar>
-                        <Avatar
-                            sx={{
-                                color: theme.palette.success.dark,
-                                backgroundColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.success.light,
-                                border: theme.palette.mode === 'dark' ? '1px solid' : 'none',
-                                borderColor: theme.palette.success.main
-                            }}
-                        >
-                            <IconBuildingStore stroke={1.5} size="20px" />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">Store Verification Done</Typography>} />
-                    <ListItemSecondaryAction>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item xs={12}>
-                                <Typography variant="caption" display="block" gutterBottom>
-                                    2 min ago
-                                </Typography>
+
+            {currentUser.roles[0] === 'ROLE_ADMIN_PURCHASE_OFFICE' ? (
+                <ListItemWrapper>
+                    <ListItem alignItems="center">
+                        <ListItemAvatar>
+                            <Avatar
+                                sx={{
+                                    color: theme.palette.success.dark,
+                                    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.success.light,
+                                    border: theme.palette.mode === 'dark' ? '1px solid' : 'none',
+                                    borderColor: theme.palette.success.main
+                                }}
+                            >
+                                <IconBuildingStore stroke={1.5} size="20px" />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={<Typography variant="subtitle1">Inventory Order Request </Typography>} />
+                        <ListItemSecondaryAction>
+                            <Grid container justifyContent="flex-end">
+                                <Grid item xs={12}>
+                                    <Typography variant="caption" display="block" gutterBottom>
+                                        2 min ago
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                    <Grid container direction="column" className="list-container">
+                        <Grid item xs={12} sx={{ pb: 2 }}>
+                            <Typography variant="subtitle2">
+                                {' '}
+                                You have a new message from R & D Department-(Material 01) Item quantity is lower than the minimum limit.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid container>
+                                <Grid item>
+                                    <Chip label="Unread" sx={chipErrorSX} />
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </ListItemSecondaryAction>
-                </ListItem>
-                <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
-                        <Typography variant="subtitle2">We have successfully received your request.</Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Grid container>
-                            <Grid item>
-                                <Chip label="Unread" sx={chipErrorSX} />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </ListItemWrapper>
+                </ListItemWrapper>
+            ) : (
+                ''
+            )}
+
             <Divider />
             <ListItemWrapper>
                 <ListItem alignItems="center">
@@ -201,7 +231,14 @@ const NotificationList = () => {
                     <ListItemAvatar>
                         <Avatar alt="John Doe" src={User1} />
                     </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">John Doe</Typography>} />
+                    <ListItemText
+                        primary={
+                            <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
+                                {currentUser?.username}
+                            </Typography>
+                        }
+                    />
+
                     <ListItemSecondaryAction>
                         <Grid container justifyContent="flex-end">
                             <Grid item xs={12}>
@@ -252,7 +289,13 @@ const NotificationList = () => {
                     <ListItemAvatar>
                         <Avatar alt="John Doe" src={User1} />
                     </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">John Doe</Typography>} />
+                    <ListItemText
+                        primary={
+                            <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
+                                {currentUser?.username}
+                            </Typography>
+                        }
+                    />
                     <ListItemSecondaryAction>
                         <Grid container justifyContent="flex-end">
                             <Grid item xs={12}>

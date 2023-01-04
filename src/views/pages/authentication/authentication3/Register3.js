@@ -8,9 +8,8 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
 import Logo from 'ui-component/Logo';
-import AuthRegister from '../auth-forms/AuthRegister';
-import AuthFooter from 'ui-component/cards/AuthFooter';
 import useAuth from 'hooks/useAuth';
+import JWTRegister from '../register/JWTRegister';
 
 // assets
 
@@ -50,19 +49,19 @@ const Register = () => {
                                                     >
                                                         Sign up
                                                     </Typography>
-                                                    <Typography
+                                                    {/* <Typography
                                                         variant="caption"
                                                         fontSize="16px"
                                                         textAlign={matchDownSM ? 'center' : 'inherit'}
                                                     >
                                                         Enter your credentials to continue
-                                                    </Typography>
+                                                    </Typography> */}
                                                 </Stack>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <AuthRegister />
+                                        <JWTRegister />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
@@ -84,9 +83,9 @@ const Register = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
+                {/* <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
                     <AuthFooter />
-                </Grid>
+                </Grid> */}
             </Grid>
         </AuthWrapper1>
     );

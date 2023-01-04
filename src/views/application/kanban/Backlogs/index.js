@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -13,9 +13,9 @@ import UserStory from './UserStory';
 import ItemDetails from '../Board/ItemDetails';
 import { useDispatch, useSelector } from 'store';
 import { updateStoryOrder, updateStoryItemOrder } from 'store/slices/kanban';
-
-// assets
 import AddIcon from '@mui/icons-material/Add';
+import MaterialTable from 'material-table';
+import tableIcons from 'views/MaterialTableIcons';
 
 const getDropWrapper = (isDraggingOver, theme) => ({
     background: isDraggingOver ? theme.palette.secondary.light + 50 : 'transparent'
@@ -28,6 +28,8 @@ const Backlogs = () => {
     const dispatch = useDispatch();
     const kanban = useSelector((state) => state.kanban);
     const { userStory, userStoryOrder } = kanban;
+    localStorage.setItem('kanban', JSON.stringify(kanban));
+    localStorage.setItem('userStoryOrder', JSON.stringify(userStoryOrder));
 
     const onDragEnd = (result) => {
         let newUserStory;
@@ -134,6 +136,18 @@ const Backlogs = () => {
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                                 sx={getDropWrapper(snapshot.isDraggingOver, theme)}
+                                options={{
+                                    exportButton: {
+                                        csv: true,
+                                        pdf: true
+                                    }
+                                }}
+                                localization={{
+                                    toolbar: {
+                                        exportCSVName: 'Export some Excel format',
+                                        exportPDFName: 'Export as pdf!!'
+                                    }
+                                }}
                             >
                                 <TableHead sx={{ '& th,& td': { whiteSpace: 'nowrap' } }}>
                                     <TableRow>
@@ -163,6 +177,8 @@ const Backlogs = () => {
                                 <TableBody sx={{ '& th,& td': { whiteSpace: 'nowrap' } }}>
                                     {userStoryOrder.map((storyId, index) => {
                                         const story = userStory.filter((item) => item.id === storyId)[0];
+                                        console.log(story);
+
                                         return <UserStory key={story.id} story={story} index={index} />;
                                     })}
                                     {provided.placeholder}

@@ -1,28 +1,19 @@
-import React from 'react';
-
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import {
-    Chip,
-    Grid,
-    IconButton,
-    Stack,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
-    Typography
-} from '@mui/material';
+import { React, useEffect, useState, forwardRef } from 'react';
+import MaterialTable from 'material-table';
+
+import tableIcons from 'views/MaterialTableIcons';
+import { gridSpacing } from 'store/constant';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+
+import { FormControlLabel, FormGroup, Grid, Switch } from '@mui/material';
+
+import MainCard from 'ui-component/cards/MainCard';
 
 // project imports
 import Avatar from 'ui-component/extended/Avatar';
-
-import { useDispatch, useSelector } from 'store';
-import { getUsersListStyle1 } from 'store/slices/user';
-
 // assets
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone';
@@ -36,126 +27,201 @@ const UserList = () => {
     const theme = useTheme();
     const dispatch = useDispatch();
 
-    const [data, setData] = React.useState([]);
-    const { usersS1 } = useSelector((state) => state.user);
+    const [tableData, setTableData] = useState([]);
+    const columns = [
+        {
+            title: 'User Name',
+            field: 'username',
+            filterPlaceholder: 'filter',
+            align: 'center'
+        },
+        {
+            title: 'Address',
+            field: 'address',
+            filterPlaceholder: 'filter',
+            align: 'center'
+        },
+        {
+            title: 'Email',
+            field: 'email',
+            align: 'center',
+            grouping: false,
+            filterPlaceholder: 'filter'
+        },
+        {
+            title: 'Contact Number',
+            field: 'contactNumber',
+            align: 'center',
+            grouping: false,
+            filterPlaceholder: 'filter'
+        },
+        {
+            title: 'NIC',
+            field: 'nic',
+            align: 'center',
+            grouping: false,
+            filterPlaceholder: 'filter'
+        },
+        {
+            title: 'DOB',
+            field: 'image',
+            align: 'center',
+            grouping: false,
+            filterPlaceholder: 'filter'
+        },
 
-    React.useEffect(() => {
-        setData(usersS1);
-    }, [usersS1]);
+        {
+            title: 'Status',
+            field: 'activeState',
+            filterPlaceholder: 'True || False',
+            align: 'center',
+            emptyValue: () => <em>null</em>,
+            render: (rowData) => (
+                <div
+                    style={{
+                        alignItems: 'center',
+                        align: 'center',
+                        display: 'flex'
+                    }}
+                >
+                    {rowData.activeState === true ? (
+                        <FormGroup>
+                            <FormControlLabel control={<Switch color="success" size="small" />} checked="true" />
+                        </FormGroup>
+                    ) : (
+                        <FormGroup>
+                            <FormControlLabel control={<Switch color="error" size="small" />} checked="false" />
+                        </FormGroup>
+                    )}
+                </div>
+            )
+        }
+    ];
 
-    React.useEffect(() => {
-        dispatch(getUsersListStyle1());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // React.useEffect(() => {
+    //     setData(usersS1);
+    // }, [usersS1]);
+
+    const fetchAllUsers = async () => {
+        await axios.get('http://localhost:8080/api/auth/get-all-users').then((response) => {
+            console.log(response.data);
+            setTableData(response.data.data.list);
+            // setTableData(response.data.data.list);
+        });
+    };
+    useEffect(() => {
+        fetchAllUsers();
     }, []);
+    // React.useEffect(() => {
+    //     dispatch(getUsersListStyle1());
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     return (
-        <TableContainer>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell sx={{ pl: 3 }}>#</TableCell>
-                        <TableCell>User Profile</TableCell>
-                        <TableCell>Country</TableCell>
-                        <TableCell>Friends</TableCell>
-                        <TableCell>Followers</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell align="center" sx={{ pr: 3 }}>
-                            Actions
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data &&
-                        data.map((row, index) => (
-                            <TableRow hover key={index}>
-                                <TableCell sx={{ pl: 3 }}>{row.id}</TableCell>
-                                <TableCell>
-                                    <Grid container spacing={2} alignItems="center">
-                                        <Grid item>
-                                            <Avatar alt="User 1" src={avatarImage(`./${row.avatar}`)} />
-                                        </Grid>
-                                        <Grid item xs zeroMinWidth>
-                                            <Typography align="left" variant="subtitle1" component="div">
-                                                {row.name}{' '}
-                                                {row.status === 'Active' && (
-                                                    <CheckCircleIcon sx={{ color: 'success.dark', width: 14, height: 14 }} />
-                                                )}
-                                            </Typography>
-                                            <Typography align="left" variant="subtitle2" noWrap>
-                                                {row.email}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                </TableCell>
-                                <TableCell>{row.location}</TableCell>
-                                <TableCell>{row.friends}</TableCell>
-                                <TableCell>{row.followers}</TableCell>
-                                <TableCell>
-                                    {row.status === 'Active' && (
-                                        <Chip
-                                            label="Active"
-                                            size="small"
-                                            sx={{
-                                                background:
-                                                    theme.palette.mode === 'dark'
-                                                        ? theme.palette.dark.main
-                                                        : theme.palette.success.light + 60,
-                                                color: theme.palette.success.dark
-                                            }}
-                                        />
-                                    )}
-                                    {row.status === 'Rejected' && (
-                                        <Chip
-                                            label="Rejected"
-                                            size="small"
-                                            sx={{
-                                                background:
-                                                    theme.palette.mode === 'dark'
-                                                        ? theme.palette.dark.main
-                                                        : theme.palette.orange.light + 80,
-                                                color: theme.palette.orange.dark
-                                            }}
-                                        />
-                                    )}
-                                    {row.status === 'Pending' && (
-                                        <Chip
-                                            label="Pending"
-                                            size="small"
-                                            sx={{
-                                                background:
-                                                    theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.warning.light,
-                                                color: theme.palette.warning.dark
-                                            }}
-                                        />
-                                    )}
-                                </TableCell>
-                                <TableCell align="center" sx={{ pr: 3 }}>
-                                    <Stack direction="row" justifyContent="center" alignItems="center">
-                                        <Tooltip placement="top" title="Message">
-                                            <IconButton color="primary" aria-label="delete" size="large">
-                                                <ChatBubbleTwoToneIcon sx={{ fontSize: '1.1rem' }} />
-                                            </IconButton>
-                                        </Tooltip>
-                                        <Tooltip placement="top" title="Block">
-                                            <IconButton
-                                                color="primary"
-                                                sx={{
-                                                    color: theme.palette.orange.dark,
-                                                    borderColor: theme.palette.orange.main,
-                                                    '&:hover ': { background: theme.palette.orange.light }
-                                                }}
-                                                size="large"
-                                            >
-                                                <BlockTwoToneIcon sx={{ fontSize: '1.1rem' }} />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </Stack>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div>
+            <MainCard>
+                <div style={{ textAlign: 'right' }}> </div>
+                <br />
+                <Grid container spacing={gridSpacing}>
+                    <Grid item xs={12}>
+                        <Grid container spacing={gridSpacing}>
+                            <Grid item xs={12}>
+                                <MaterialTable
+                                    detailPanel={[
+                                        {
+                                            tooltip: 'Show Name',
+                                            render: (rowData) => (
+                                                <div
+                                                    style={{
+                                                        // fontSize: 20,
+                                                        // textAlign: "center",
+                                                        height: 75
+                                                    }}
+                                                >
+                                                    {' '}
+                                                    <Grid container spacing={gridSpacing}>
+                                                        <Grid item> First Name : {rowData.firstName}</Grid>
+                                                        <Grid item>Last Name : {rowData.lastName}</Grid>
+                                                        <Grid item>Middle Name: {rowData.mname}</Grid>
+                                                        <Grid item>Company Email: {rowData.companyEmail}</Grid>
+                                                    </Grid>
+                                                </div>
+                                            )
+                                        }
+                                    ]}
+                                    columns={columns}
+                                    data={tableData}
+                                    actions={[
+                                        {
+                                            icon: tableIcons.Add,
+                                            tooltip: 'Add New',
+                                            isFreeAction: true
+                                            // onClick: () => handleClickOpen('INSERT', null)
+                                        },
+                                        (rowData) => ({
+                                            icon: tableIcons.Edit,
+                                            tooltip: 'Edit'
+                                            // onClick: () => handleClickOpen('VIEW_UPDATE', rowData)
+                                        }),
+                                        (rowData) => ({
+                                            icon: tableIcons.VisibilityIcon,
+                                            tooltip: 'View'
+                                            // onClick: () => handleClickOpen('VIEW', rowData)
+                                        })
+                                    ]}
+                                    options={{
+                                        padding: 'dense',
+                                        showTitle: false,
+                                        sorting: true,
+                                        search: true,
+                                        searchFieldAlignment: 'right',
+                                        searchAutoFocus: true,
+                                        searchFieldVariant: 'standard',
+                                        filtering: true,
+                                        paging: true,
+                                        pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
+                                        pageSize: 5,
+                                        paginationType: 'stepped',
+                                        showFirstLastPageButtons: false,
+                                        exportButton: true,
+                                        exportAllData: true,
+                                        exportFileName: 'User Data',
+                                        actionsColumnIndex: -1,
+                                        columnsButton: true,
+
+                                        headerStyle: {
+                                            whiteSpace: 'nowrap',
+                                            height: 20,
+                                            maxHeight: 20,
+                                            padding: 2,
+                                            fontSize: '14px',
+                                            background: '-moz-linear-gradient(top, #0790E8, #3180e6)',
+                                            // background: '-ms-linear-gradient(top, #0790E8, #3180e6)',
+                                            // background: '-webkit-linear-gradient(top, #0790E8, #3180e6)',
+                                            textAlign: 'center',
+                                            color: 'black'
+                                        },
+                                        rowStyle: {
+                                            whiteSpace: 'nowrap',
+                                            height: 20,
+                                            fontSize: '13px',
+                                            padding: 0
+                                        }
+                                    }}
+                                />
+
+                                {/* {open ? <CustomerManage open={open} handleClose={handleClose} marketCode={marketCode} mode={mode} /> : ''} */}
+                                {/* {openToast ? <SuccessMsg openToast={openToast} handleToast={handleToast} mode={mode} /> : null}
+                                {openErrorToast ? (
+                                    <ErrorMsg openToast={openErrorToast} handleToast={setOpenErrorToast} mode={mode} />
+                                ) : null} */}
+                            </Grid>
+                        </Grid>
+                        {/* </SubCard> */}
+                    </Grid>
+                </Grid>
+            </MainCard>
+        </div>
     );
 };
 

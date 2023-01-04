@@ -6,12 +6,11 @@ import { Button, IconButton, Grid, Stack, Typography } from '@mui/material';
 // project imports
 import SubCard from 'ui-component/cards/SubCard';
 import Chip from 'ui-component/extended/Chip';
-
-// assets
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import AuthService from 'services/auth.service';
 
-// ==============================|| CHECKOUT BILLING ADDRESS - ADDRESS CARD ||============================== //
+const currentUser = AuthService.getCurrentUser();
 
 const AddressCard = ({ address, single, change, handleClickOpen, billingAddressHandler, onBack }) => (
     <SubCard sx={{ height: single ? 'auto' : '100%' }}>
@@ -32,7 +31,7 @@ const AddressCard = ({ address, single, change, handleClickOpen, billingAddressH
                 <Grid item xs={12}>
                     <Stack direction="row" alignItems="center" justifyContent="space-between">
                         <Stack direction="row" alignItems="center" spacing={0.5}>
-                            <Typography variant="subtitle1">{address.name}</Typography>
+                            <Typography variant="subtitle1">{currentUser.username}</Typography>
                             <Typography variant="caption" sx={{ textTransform: 'capitalize' }}>
                                 ({address.destination})
                             </Typography>
