@@ -3,7 +3,7 @@ import * as React from 'react';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { AppBar, Box, Container, useScrollTrigger } from '@mui/material';
-
+ 
 // project imports
 import MenuList from './MenuList';
 import useConfig from 'hooks/useConfig';
